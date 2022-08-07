@@ -1,0 +1,21 @@
+MELHOR SOLUÇÃO (GULOSO):
+Cluster 0: 0 7 5 6 
+Cluster 1: 3 8 4 
+Cluster 2: 1 2 
+
+QUALIDADE: 29
+
+MELHOR SOLUÇÃO (GULOSO RANDOMIZADO):
+Cluster 0: 2 1 
+Cluster 1: 8 0 5 6 7 
+Cluster 2: 3 4 
+
+QUALIDADE: 37
+
+MELHOR SOLUÇÃO (GULOSO RANDOMIZADO REATIVO):
+Cluster 0: 1 2 
+Cluster 1: 0 5 8 7 6 
+Cluster 2: 3 4 
+
+QUALIDADE: 37
+
