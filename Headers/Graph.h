@@ -106,8 +106,8 @@ public:
     ///CCP
     vector<ClusterNode> orderVertices();
     Cluster* guloso();
-    Cluster* gulosoRand(float alfa, int numInter);
-    Cluster* gulosoRandReativo(float* alfa, int numInter, int bloco, int numAlfas);
+    Cluster* gulosoRand(float alfa, int numIter);
+    Cluster* gulosoRandReativo(float* alfa, int numIter, int bloco, int numAlfas);
     void printCCP(Cluster* bestSol, int numClusters, ofstream& outputFile);
 
 private:

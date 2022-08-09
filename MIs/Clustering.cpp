@@ -72,11 +72,11 @@ vector<ClusterNode> Graph::orderVertices() {
 
     sort(vertices.begin(), vertices.end(), compareNodes);
 
-    cout << "Vetor ordenado: ";
-    for (auto & vertice : vertices){
-        cout << vertice.getExternalId() << " ";
-    }
-    cout << endl;
+    //cout << "Vetor ordenado: ";
+    //for (auto & vertice : vertices){
+        //cout << vertice.getExternalId() << " ";
+    //}
+    //cout << endl;
 
 
     return vertices;
@@ -185,13 +185,14 @@ Cluster* Graph::guloso() {
         cout << "Limite final: " << clusters[i].getActualLimit() << endl << endl;*/
         quality += clusters[i].getSumEdges();
     }
-    cout << "QUALIDADE: " << quality << endl;
 
+    cout << endl;
+    cout << "QUALIDADE: " << quality << endl;
 
     return clusters;
 }
 
-Cluster* Graph::gulosoRand(float alfa, int numInter){
+Cluster* Graph::gulosoRand(float alfa, int numIter){
 
     int order = this->getOrder();
     if (numClusters > order) {
@@ -205,7 +206,7 @@ Cluster* Graph::gulosoRand(float alfa, int numInter){
     Cluster *bestSol;
     float qualitySol = 0;
 
-    for (int x = 0; x < numInter; x++) {
+    for (int x = 0; x < numIter; x++) {
         Cluster *clusters = new Cluster[numClusters];
         auto verticesCopy = vertices;
 
@@ -289,12 +290,13 @@ Cluster* Graph::gulosoRand(float alfa, int numInter){
         float quality = 0;
         //cout << "Soma final de cada cluster: " << endl;
         for (int i = 0; i < numClusters; ++i) {
-            /*cout << "Cluster[" << i << "] = " << clusters[i].getSumEdges() << endl;
-            cout << "Limite minimo: " << clusters[i].getLowerLimit() << endl;
-            cout << "Limite final: " << clusters[i].getActualLimit() << endl << endl;*/
+            //cout << "Cluster[" << i << "] = " << clusters[i].getSumEdges() << endl;
+            //cout << "Limite minimo: " << clusters[i].getLowerLimit() << endl;
+            //cout << "Limite final: " << clusters[i].getActualLimit() << endl << endl;
             quality += clusters[i].getSumEdges();
         }
-        cout << "QUALIDADE: " << quality << endl;
+        //cout << endl;
+        //cout << "QUALIDADE: " << quality << endl;
 
         if(quality > qualitySol){
             qualitySol = quality;
@@ -304,17 +306,21 @@ Cluster* Graph::gulosoRand(float alfa, int numInter){
         }
 
     }
+    float quality = 0;
+    //cout << "Soma final de cada cluster: " << endl;
+    for (int i = 0; i < numClusters; ++i) {
+        //cout << "Cluster[" << i << "] = " << bestSol[i].getSumEdges() << endl;
+        //cout << "Limite minimo: " << bestSol[i].getLowerLimit() << endl;
+        //cout << "Limite final: " << bestSol[i].getActualLimit() << endl << endl;
+        quality += bestSol[i].getSumEdges();
+    }
     cout << endl;
-    cout << "SOLUCAO FINAL:" << endl;
-    cout << "Melhor cluster = " << bestSol->getSumEdges() << endl;
-    //cout << "Limite minimo: " << bestSol->getLowerLimit() << endl;
-    cout << "Limite final: " << bestSol->getActualLimit() << endl;
-    cout << "Qualidade: " << qualitySol << endl;
+    cout << "QUALIDADE: " << quality << endl;
 
     return bestSol;
 }
 
-Cluster* Graph::gulosoRandReativo(float* alfa, int numInter, int bloco, int numAlfas) {
+Cluster* Graph::gulosoRandReativo(float* alfa, int numIter, int bloco, int numAlfas) {
     int order = this->getOrder();
     if (numClusters > order) {
         cout << "ERRO: numero de clusters maior que o numero de vertices" << endl;
@@ -342,7 +348,7 @@ Cluster* Graph::gulosoRandReativo(float* alfa, int numInter, int bloco, int numA
     int auxAlfaIndex = 0;
     int alfaIndex = 0;
 
-    for (int x = 0; x < numInter; x++) {
+    for (int x = 0; x < numIter; x++) {
 
         if(x % bloco == 0 && x != 0){
             updateProbabilities(probabilities, alfaAverage, qualitySol, numAlfas);
@@ -453,6 +459,8 @@ Cluster* Graph::gulosoRandReativo(float* alfa, int numInter, int bloco, int numA
         alfaAverage[alfaIndex] = auxAverage[alfaIndex] / (float)numUsesForAlfa[alfaIndex];
         //cout << "aux: " << auxAverage[alfaIndex] << "alfaAverage: " << alfaAverage[alfaIndex] << "numUses: " << numUsesForAlfa[alfaIndex] << endl;
         numUsesForAlfa[alfaIndex]++;
+
+        cout << endl;
         cout << "QUALIDADE: " << quality << endl;
 
         if(quality > qualitySol){
@@ -473,12 +481,12 @@ Cluster* Graph::gulosoRandReativo(float* alfa, int numInter, int bloco, int numA
         cout << "Probabilidade[" << i << "]: " << probabilities[i] << endl;
     }
 
-    cout << endl;
+    /*cout << endl;
     cout << "SOLUCAO FINAL:" << endl;
     cout << "Melhor cluster = " << bestSol->getSumEdges() << endl;
     cout << "Limite minimo: " << bestSol->getLowerLimit() << endl;
     cout << "Limite final: " << bestSol->getActualLimit() << endl;
-    cout << "Qualidade: " << qualitySol << endl;
+    cout << "Qualidade: " << qualitySol << endl;*/
 
     /*cout << "ALFAS: " << endl;
     for (int i = 0; i < numAlfas; ++i) {

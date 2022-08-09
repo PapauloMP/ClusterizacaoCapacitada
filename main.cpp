@@ -17,18 +17,17 @@ int main(int argc, char** argv) {
 
     /*if(argc != 4){
         cout << "ERRO: parametros nao correspondem com a sintaxe do comando" << endl;
-        cout << "Sintaxe correta: ./exec <arquivo_entrada> <arquivo_saida> <Opc_Direc> <Opc_Peso_Aresta> <Opc_Peso_Nos>" << endl;
+        cout << "Sintaxe correta: ./exec <arquivo_entrada> <arquivo_saida> <Tipo_Instancia>" << endl;
         abort();
     }
 
     string inputFilePath = argv[1];
     string outputFilePath = argv[2];
-    bool isDirected = stoi(argv[3]);
-    bool isWeightedEdge = stoi(argv[4]);
-    bool isWeightedNode = stoi(argv[5]);*/
+    string type = (argv[3]);*/
+
     auto start = std::chrono::steady_clock::now();
 
-    string inputFilePath = "../GrafoCCP2.txt";
+    string inputFilePath = "../RanReal240_01.txt";
     string outputFilePath = "../OutputCCP2.txt";
     //ofstream outputFile;
     //cout << "A: " << outputFile.is_open();
@@ -45,27 +44,24 @@ int main(int argc, char** argv) {
 
 
     srand(time(NULL));
-    float alfa[5];
+    float alfa[5] = {0.05, 0.10, 0.15, 0.30, 0.50};
     for (int i = 0; i < 5; i++) {
-        alfa[i] = 0.05 + 0.15*i;
         cout << alfa[i] << " ";
     }
     cout << endl;
 
     Menu* menu = new Menu(grafo, outputFilePath, alfa);
-    //menu->start();
+    menu->start();
 
-    menu->guloso();
-    menu->gulosoRand();
-    menu->gulosoRandReativo();
+    //menu->guloso();
+    //menu->gulosoRand();
+    //menu->gulosoRandReativo();
 
     auto end = std::chrono::steady_clock::now();
     auto elapsed  = end - start;
 
     cout << endl;
-    cout << "TEMPO DE PROCESSAMENTO: " <<  std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count() << "ms" << endl;
-    cout << "SEMENTE DE RANDOMIZACAO : srand(time(NULL))" << endl;
-    cout << "SOLUCAO VIAVEL!" << endl;
+    cout << "TEMPO DE PROCESSAMENTO TOTAL: " <<  std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count() << "ms" << endl;
 
 
     return 0;

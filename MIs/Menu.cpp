@@ -6,6 +6,7 @@
 #include <sstream>
 #include "../Headers/Graph.h"
 #include "../Headers/Menu.h"
+#include <chrono>
 
 Menu::Menu(Graph *graph, const string& outputPath, float* alfa){
     this->outputFile.open(outputPath);
@@ -68,15 +69,48 @@ void Menu::selectMenu(int option) {
 }
 
 void Menu::guloso() {
+    auto start = std::chrono::steady_clock::now();
+
     Cluster* c = this->graph->guloso();
+
+    auto end = std::chrono::steady_clock::now();
+    auto elapsed  = end - start;
+    cout << endl;
+    cout << "TEMPO DE PROCESSAMENTO DO ALGORITMO GULOSO: " ;
+    cout <<  std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count() << "ms" << endl;
+    cout << "SEMENTE DE RANDOMIZACAO : srand(time(NULL))" << endl;
+    cout << "SOLUCAO VIAVEL!" << endl;
+
     printCCP(c , this->graph->getNumClusters(), "GULOSO");
 }
 void Menu::gulosoRand() {
-    Cluster* c = this->graph->gulosoRand(0.5, 10);
+    auto start = std::chrono::steady_clock::now();
+
+    Cluster* c = this->graph->gulosoRand(0.05, 500);
+
+    auto end = std::chrono::steady_clock::now();
+    auto elapsed  = end - start;
+    cout << endl;
+    cout << "TEMPO DE PROCESSAMENTO DO ALGORITMO GULOSO RANDOMIZADO: ";
+    cout <<  std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count() << "ms" << endl;
+    cout << "SEMENTE DE RANDOMIZACAO : srand(time(NULL))" << endl;
+    cout << "SOLUCAO VIAVEL!" << endl;
+
     printCCP(c , this->graph->getNumClusters(), "GULOSO RANDOMIZADO");
 }
 void Menu::gulosoRandReativo() {
-    Cluster* c = this->graph->gulosoRandReativo(alfa, 20, 10, 5);
+    auto start = std::chrono::steady_clock::now();
+
+    Cluster* c = this->graph->gulosoRandReativo(alfa, 2500, 250, 5);
+
+    auto end = std::chrono::steady_clock::now();
+    auto elapsed  = end - start;
+    cout << endl;
+    cout << "TEMPO DE PROCESSAMENTO DO ALGORITMO GULOSO RANDOMIZADO REATIVO: ";
+    cout<<  std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count() << "ms" << endl;
+    cout << "SEMENTE DE RANDOMIZACAO : srand(time(NULL))" << endl;
+    cout << "SOLUCAO VIAVEL!" << endl;
+
     printCCP(c , this->graph->getNumClusters(), "GULOSO RANDOMIZADO REATIVO");
 }
 void Menu::printCCP(Cluster *bestSol, int numClusters, string type){
